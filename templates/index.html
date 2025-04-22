@@ -2,183 +2,166 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Steganography</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-image: url(https://images.contentstack.io/v3/assets/blt36c2e63521272fdc/blt73992ac49727a85f/628d1e2b561ae95d0c3ce031/Purple_Team4_oo_zoom.jpeg);
-            background-size: 100%;
-            background-position-x: 0%;
-            /* background-color: rgb(14, 85, 227); */
+            background-image: url('https://img.freepik.com/premium-vector/digital-data-encryption-background_1406-108.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .card {
+            background-color: rgba(74, 48, 122, 0.9);
+            color: #fff;
+            min-height: 62vh;
+            border-radius: 15px;
         }
 
-        .Box {
-            width: 350px;
-            height: 470px;
-            color: #bec3d0;
+        .form-label,
+        .form-control,
+        textarea {
+            color: #fff;
+        }
+
+        .form-control,
+        textarea {
+            background-color: rgba(158, 158, 158, 0.1);
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus {
+            background-color: rgba(97, 96, 96, 0.2);
+            color: white;
+        }
+
+        .form-control::placeholder {
+            color: white;
+            opacity: 1;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-top: 30px;
+        }
+
+        nav {
             background-color: #1b083e;
-            border: 2px solid rgb(255, 255, 255);
-            padding: 20px;
-            border-radius: 18px;
-            margin: 20px;
-            opacity: 0.8;
         }
 
-        .img {
-            background-color: #585c65;
-            border: 2px solid rgb(0, 0, 0);
+        .nav-link {
+            color: #fff;
         }
 
-        h1,
-        h3 {
-            margin-bottom: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: aliceblue;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        .buttons button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            width: 95%;
-            cursor: pointer;
-        }
-
-        #output {
-            margin-top: 20px;
-            word-wrap: break-word;
-            overflow: auto;
-            max-width: 90%;
+        .nav-link.active {
+            font-weight: bold;
+            background-color: #3b1f6b;
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <ul class="nav nav-tabs">
+
+    <nav class="navbar navbar-expand-lg navbar-dark px-3">
+        <a class="navbar-brand" href="#">Steganography</a>
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Test</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Steganography.pdf">About</a>
+                <a class="nav-link active" href="#">Home</a>
             </li>
         </ul>
     </nav>
 
-    <h1>Steganography</h1>
+    <div class="container py-5">
+        <h1 class="text-center mb-5">Steganography Portal</h1>
+        <div class="row justify-content-center g-4">
 
-    <div class="container">
+            <!-- Encode Card -->
+            <div class="col-md-5">
+                <div class="card p-4 shadow">
+                    <h3 class="text-center mb-4">Encode Message</h3>
+                    <form id="hideForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="InImage" class="form-label">Select Input Image:</label>
+                            <input type="file" class="form-control" id="InImage" name="image" accept="image/*" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InMessage" class="form-label">Enter Text Message:</label>
+                            <textarea class="form-control" id="InMessage" name="message" rows="4"
+                                placeholder="Type here..." required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-light text-dark fw-semibold">Encode</button>
+                        </div>
+                        <div id="success" class="mt-3 text-info fw-semibold">Report:</div>
+                    </form>
+                </div>
+            </div>
 
-        <div class="Box">
-            <h3>Encode Message</h3>
-            <form id="hideForm" enctype="multipart/form-data">
-                <div class="img">
-                    <label for="InImage">Select Input Image:</label>
-                    <input type="file" id="InImage" name="image" accept="image/*">
-                </div><br>
-                <div>
-                    <label for="InMessage">Enter text message:</label>
-                    <textarea id="InMessage" name="message" rows="4" cols="35"></textarea>
+            <!-- Decode Card -->
+            <div class="col-md-5">
+                <div class="card p-4 shadow">
+                    <h3 class="text-center mb-4">Decode Message</h3>
+                    <form id="extractForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="OutImage" class="form-label">Select Image:</label>
+                            <input type="file" class="form-control" id="OutImage" name="image" accept="image/*"
+                                required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-light text-dark fw-semibold">Decode</button>
+                        </div>
+                        <div id="output" class="mt-3 text-info">Hidden Message:</div>
+                    </form>
                 </div>
-                <div class="buttons">
-                    <button type="submit" id="hideBtn">Encode</button>
-                    <!-- <a id="downloadLink" href="#" style="display: none;" download>Download Image</a> -->
-                </div>
-            </form>
-            <div id="success">Report: </div>
+            </div>
+
         </div>
-
-        <div class="Box">
-            <h3>Decode Message</h3>
-            <form id="extractForm" enctype="multipart/form-data">
-                <div class="img">
-                    <label for="OutImage">Select Image:</label>
-                    <input type="file" id="OutImage" name="image" accept="image/*">
-                </div>
-                <div class="buttons">
-                    <button type="submit" id="extractBtn">Decode</button>
-                </div>
-            </form>
-            <div id="output">Hidden message:</div>
-        </div>
-
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("hideForm").addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent form submission
-
+                event.preventDefault();
                 var formData = new FormData(this);
-
                 fetch("/hide_message", {
                     method: "POST",
                     body: formData
                 })
                     .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Message could not be hidden!');
-                        }
+                        if (!response.ok) throw new Error('Failed to hide message.');
                         return response.json();
                     })
                     .then(data => {
                         document.getElementById("success").textContent = "Report: Message Hidden Successfully!";
+                        document.getElementById("InMessage").value = "";
                     })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    });
+                    .catch(error => console.error("Error:", error));
             });
 
             document.getElementById("extractForm").addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent form submission
-
+                event.preventDefault();
                 var formData = new FormData(this);
-
                 fetch("/extract_message", {
                     method: "POST",
                     body: formData
                 })
                     .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Message extraction failed!');
-                        }
+                        if (!response.ok) throw new Error('Failed to extract message.');
                         return response.json();
                     })
                     .then(data => {
                         document.getElementById("output").textContent = "Hidden message: " + data.message;
                     })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    });
+                    .catch(error => console.error("Error:", error));
             });
         });
-
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <!-- <script src="script.js"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
